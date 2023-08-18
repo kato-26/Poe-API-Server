@@ -8,7 +8,6 @@ from functools import wraps
 from selenium.common.exceptions import WebDriverException, TimeoutException
 import markdownify, time, secrets, string, os, glob, hashlib
 from config import config
-import undetected_chromedriver as uc
 
 import undetected_chromedriver as uc
 
