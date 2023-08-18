@@ -10,6 +10,19 @@ import markdownify, time, secrets, string, os, glob, hashlib
 from config import config
 import undetected_chromedriver as uc
 
+def suppress_exception_in_del(uc):
+    old_del = uc.Chrome.__del__
+
+    def new_del(self) -> None:
+        try:
+            old_del(self)
+        except:
+            pass
+    
+    setattr(uc.Chrome, '__del__', new_del)
+
+suppress_exception_in_del(uc)
+
 def handle_errors(func):
     @wraps(func)
     def wrapped_func(self, *args, **kwargs):
