@@ -10,6 +10,8 @@ import markdownify, time, secrets, string, os, glob, hashlib
 from config import config
 import undetected_chromedriver as uc
 
+import undetected_chromedriver as uc
+
 def suppress_exception_in_del(uc):
     old_del = uc.Chrome.__del__
 
@@ -22,19 +24,6 @@ def suppress_exception_in_del(uc):
     setattr(uc.Chrome, '__del__', new_del)
 
 suppress_exception_in_del(uc)
-
-def handle_errors(func):
-    @wraps(func)
-    def wrapped_func(self, *args, **kwargs):
-        try:
-            return func(self, *args, **kwargs)
-        except WebDriverException as e:
-            print(f"An error occurred: {e}")
-            time.sleep(3)
-            self.kill_driver()
-            time.sleep(1)
-            self.start_driver()
-    return wrapped_func
 
 class PoeBot:
     message_hash_list = set()
